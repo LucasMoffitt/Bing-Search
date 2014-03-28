@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 
 namespace BingSearch
@@ -17,14 +18,23 @@ namespace BingSearch
             do
             {
                 Console.WriteLine("What are you looking for?");
-                var searchResults = searcher.Search(Console.ReadLine());
+                var query = Console.ReadLine();
 
-                if (searchResults == null)
+                Console.WriteLine("How many results do you want? (leave empty for default)");
+                int resultsCount;
+                Int32.TryParse(Console.ReadLine(), out resultsCount);
+
+                IEnumerable<BingSearch.Result> searchResults;
+                try
                 {
-                    Console.WriteLine("Nothing to show...");
+                    searchResults = searcher.Search(query, resultsCount);
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception.Message);
                     continue;
                 }
-
+                
                 Console.WriteLine("Here's some results...");
                 foreach (var result in searchResults)
                 {
