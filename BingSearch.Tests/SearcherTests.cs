@@ -30,9 +30,7 @@ namespace BingSearch.Tests
         [Fact]
         public void BingRequestHasCorrectResourceUrl()
         {
-            var searcher = new Searcher(ApiKey);
-
-            var request = searcher.BuildBingRequest("Just a Test Query", 0);
+            var request = _searcher.BuildBingRequest("Just a Test Query", 0);
             Assert.Same(request.Resource, "https://api.datamarket.azure.com/Bing/SearchWeb/v1/Web");
         }
 
